@@ -24,6 +24,8 @@ class InfiniteScrollList extends StatefulWidget {
   final String? restorationId;
   final Clip clipBehavior;
   final Widget? loadingWidget;
+  final Widget? bottomLoadingWidget;
+
   const InfiniteScrollList({
     Key? key,
     required this.children,
@@ -46,6 +48,7 @@ class InfiniteScrollList extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     this.clipBehavior = Clip.hardEdge,
     this.loadingWidget,
+    this.bottomLoadingWidget,
   }) : super(key: key);
 
   @override
@@ -74,9 +77,7 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
 
   Future<void> _removeLoader() async {
     Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      if (widget.children.isNotEmpty &&
-          mounted &&
-          _sc.position.maxScrollExtent == 0) {
+      if (widget.children.isNotEmpty && mounted && _sc.position.maxScrollExtent == 0) {
         setState(() {
           _loading = false;
         });
@@ -92,7 +93,7 @@ class _InfiniteScrollListState extends State<InfiniteScrollList> {
     }
     if (!widget.everythingLoaded) {
       childrens.add(
-        widget.loadingWidget ??
+        widget.bottomLoadingWidget ??
             const Padding(
               padding: EdgeInsets.all(20),
               child: Center(

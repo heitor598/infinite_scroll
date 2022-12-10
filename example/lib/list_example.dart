@@ -44,6 +44,10 @@ class _ListExampleState extends State<ListExample> {
           });
         },
         everythingLoaded: everyThingLoaded,
+        bottomLoadingWidget: LinearProgressIndicator(
+          backgroundColor: const Color(0xFFF7F7F7),
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     );
   }
