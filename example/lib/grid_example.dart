@@ -51,6 +51,9 @@ class _GridExampleState extends State<GridExample> {
         },
         everythingLoaded: everyThingLoaded,
         crossAxisCount: 3,
+        bottomLoadingWidget: const Center(
+          child: CircularProgressIndicator(color: Colors.amber),
+        ),
       ),
     );
   }

@@ -29,6 +29,7 @@ class InfiniteScrollGrid extends StatefulWidget {
   final double crossAxisSpacing;
   final double mainAxisSpacing;
   final double childAspectRatio;
+  final Widget? bottomLoadingWidget;
 
   const InfiniteScrollGrid({
     Key? key,
@@ -57,6 +58,7 @@ class InfiniteScrollGrid extends StatefulWidget {
     this.crossAxisSpacing = 0.0,
     this.mainAxisSpacing = 0.0,
     this.childAspectRatio = 1.0,
+    this.bottomLoadingWidget,
   }) : super(key: key);
 
   @override
@@ -86,9 +88,7 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
 
   Future<void> _removeLoader() async {
     Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      if (widget.children.isNotEmpty &&
-          mounted &&
-          _sc.position.maxScrollExtent == 0) {
+      if (widget.children.isNotEmpty && mounted && _sc.position.maxScrollExtent == 0) {
         setState(() {
           _loading = false;
         });
@@ -104,7 +104,7 @@ class _InfiniteScrollGridState extends State<InfiniteScrollGrid> {
     }
     if (!widget.everythingLoaded) {
       childrens.add(
-        widget.loadingWidget ??
+        widget.bottomLoadingWidget ??
             const Padding(
               padding: EdgeInsets.all(20),
               child: Center(
